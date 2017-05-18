@@ -1,12 +1,11 @@
+Summary:        Minimal dumb-terminal emulation program
 Name:           picocom
-Version:        1.7
+Version:        2.2
 Release:        1
-Summary:        Minimal serial communications program
-
-Group:          Communications
 License:        GPLv2+
-URL:            http://code.google.com/p/picocom/
-Source0:        http://picocom.googlecode.com/files/picocom-%{version}.tar.gz
+Group:          Communications
+URL:            https://github.com/npat-efault/picocom
+Source0:        https://github.com/npat-efault/picocom/archive/%{version}/%{name}-%{version}.tar.gz
 
 # for groupadd
 Requires(pre):  shadow-utils
@@ -23,25 +22,33 @@ useful in many other similar tasks. It is ideal for embedded systems
 since its memory footprint is minimal (less than 20K, when
 stripped).
 
-%prep
-%setup -q
-
-%build
-make CC="%{__cc}" CFLAGS="$RPM_OPT_FLAGS" %{_smp_mflags} UUCP_LOCK_DIR=/run/lock/picocom
-
-%install
-mkdir -p %{buildroot}%{_bindir}
-mkdir -p %{buildroot}%{_mandir}/man8
-install -m 755 picocom %{buildroot}%{_bindir}/
-install -m 644 picocom.8 %{buildroot}%{_mandir}/man8/
-mkdir -p %{buildroot}/run/lock/picocom
-
-%pre
-getent group dialout >/dev/null || groupadd -g 18 -r -f dialout
-exit 0
-
 %files
 %doc CHANGES CONTRIBUTORS LICENSE.txt README
 %dir %attr(0775,root,dialout) /run/lock/picocom
 %{_bindir}/picocom
 %{_mandir}/man8/*
+
+#----------------------------------------------------------------------------
+
+%prep
+%setup -q
+
+%build
+%setup_compile_flags
+%make UUCP_LOCK_DIR=/run/lock/picocom
+
+%install
+# binary
+install -dm 0755 %{buildroot}%{_bindir}/
+install -pm 0755 picocom %{buildroot}%{_bindir}/
+
+# manpage
+install -dm 0755 %{buildroot}%{_mandir}/man8/
+install -pm 644 picocom.8 %{buildroot}%{_mandir}/man8/
+
+install -dm 0755 %{buildroot}/run/lock/picocom
+
+%pre
+getent group dialout >/dev/null || groupadd -g 18 -r -f dialout
+exit 0
+
