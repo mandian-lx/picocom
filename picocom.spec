@@ -23,10 +23,14 @@ since its memory footprint is minimal (less than 20K, when
 stripped).
 
 %files
-%doc CHANGES CONTRIBUTORS LICENSE.txt README
-%dir %attr(0775,root,dialout) /run/lock/picocom
 %{_bindir}/picocom
 %{_mandir}/man1/*
+%dir %attr(0775,root,dialout) /run/lock/picocom
+%doc README.md
+%doc TODO
+%doc CONTRIBUTORS
+%doc CHANGES.old
+%doc LICENSE.txt
 
 #----------------------------------------------------------------------------
 
