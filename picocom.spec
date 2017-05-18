@@ -39,7 +39,7 @@ stripped).
 
 %build
 %setup_compile_flags
-%make  CFLAGS="%{optflags}" CPPFLAGS="%{optflags}" LDLIBS="%{ldflags}" UUCP_LOCK_DIR=/run/lock/picocom
+%make  CFLAGS="%{optflags}" LDLIBS="%{ldflags}" UUCP_LOCK_DIR=/run/lock/picocom
 
 %install
 # binary
