@@ -26,7 +26,7 @@ stripped).
 %doc CHANGES CONTRIBUTORS LICENSE.txt README
 %dir %attr(0775,root,dialout) /run/lock/picocom
 %{_bindir}/picocom
-%{_mandir}/man8/*
+%{_mandir}/man1/*
 
 #----------------------------------------------------------------------------
 
@@ -43,8 +43,8 @@ install -dm 0755 %{buildroot}%{_bindir}/
 install -pm 0755 picocom %{buildroot}%{_bindir}/
 
 # manpage
-install -dm 0755 %{buildroot}%{_mandir}/man8/
-install -pm 644 picocom.8 %{buildroot}%{_mandir}/man8/
+install -dm 0755 %{buildroot}%{_mandir}/man1/
+install -pm 644 picocom.1 %{buildroot}%{_mandir}/man1/
 
 install -dm 0755 %{buildroot}/run/lock/picocom
 
